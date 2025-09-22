@@ -4,7 +4,7 @@ import { useAuth, useUser } from "@clerk/clerk-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
-axios.defaults.baseURL = import.meta.env.VITE_BASE_URL
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL || 'http://localhost:3000'
 
 export const AppContext = createContext()
 
@@ -38,6 +38,7 @@ export const AppProvider = ({ children })=>{
     const fetchShows = async ()=>{
         try {
             const { data } = await axios.get('/api/show/all')
+            console.group(data);
             if(data.success){
                 setShows(data.shows)
             }else{

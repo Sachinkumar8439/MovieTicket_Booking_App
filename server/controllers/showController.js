@@ -91,6 +91,7 @@ export const addShow = async (req, res) =>{
 // API to get all shows from the database
 export const getShows = async (req, res) =>{
     try {
+        console.log("getshow run")
         const shows = await Show.find({showDateTime: {$gte: new Date()}}).populate('movie').sort({ showDateTime: 1 });
 
         // filter unique shows
