@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { dummyDateTimeData, dummyShowsData } from '../assets/assets'
+// import { dummyDateTimeData, dummyShowsData } from '../assets/assets'
 import BlurCircle from '../components/BlurCircle'
 import { Heart, PlayCircleIcon, StarIcon } from 'lucide-react'
 import timeFormat from '../lib/timeFormat'
@@ -21,10 +21,12 @@ const MovieDetails = () => {
   const getShow = async ()=>{
     try {
       const { data } = await axios.get(`/api/show/${id}`)
+      console.log("data is here is ",data);
       if(data.success){
         setShow(data)
       }
     } catch (error) {
+      console.log("here ")
       console.log(error)
     }
   }
@@ -48,7 +50,7 @@ const MovieDetails = () => {
     getShow()
   },[id])
 
-  return show ? (
+  return show?.movie ? (
     <div className='px-6 md:px-16 lg:px-40 pt-30 md:pt-50'>
       <div className='flex flex-col md:flex-row gap-8 max-w-6xl mx-auto'>
 

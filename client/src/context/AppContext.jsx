@@ -3,6 +3,7 @@ import axios from "axios";
 import { useAuth, useUser } from "@clerk/clerk-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { dummyShowsData } from "../assets/assets";
 
 axios.defaults.baseURL = import.meta.env.VITE_BASE_URL || 'http://localhost:3000'
 
@@ -40,7 +41,11 @@ export const AppProvider = ({ children })=>{
             const { data } = await axios.get('/api/show/all')
             console.group(data);
             if(data.success){
-                setShows(data.shows)
+                console.log("from the contaxt , data",data)
+                if(data?.shows?.length <=0 ){
+                    setShows(dummyShowsData)
+                    toast.error("No movies avalable now. you may see fake movie details")
+                }else setShows(data.shows)
             }else{
                 toast.error(data.message)
             }
