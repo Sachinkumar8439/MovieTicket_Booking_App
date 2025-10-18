@@ -26,6 +26,7 @@ export const AppProvider = ({ children })=>{
         try {
             const {data} = await axios.get('/api/admin/is-admin', {headers: {Authorization: `Bearer ${await getToken()}`}})
             setIsAdmin(data.isAdmin)
+            console.log("admin data", data);
 
             if(!data.isAdmin && location.pathname.startsWith('/admin')){
                 navigate('/')

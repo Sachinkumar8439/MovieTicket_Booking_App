@@ -5,6 +5,7 @@ import { inngest } from "../inngest/index.js";
 
 // API to get now playing movies from TMDB API
 export const getNowPlayingMovies = async (req, res)=>{
+    console.log("geting now play running");
     try {
         const { data } = await axios.get('https://api.themoviedb.org/3/movie/now_playing', {
             headers: {Authorization : `Bearer ${process.env.TMDB_API_KEY}`}
@@ -21,6 +22,7 @@ export const getNowPlayingMovies = async (req, res)=>{
 // API to add a new show to the database
 export const addShow = async (req, res) =>{
     try {
+        console.log("add show running");
         const {movieId, showsInput, showPrice} = req.body
 
         let movie = await Movie.findById(movieId)
@@ -91,7 +93,7 @@ export const addShow = async (req, res) =>{
 // API to get all shows from the database
 export const getShows = async (req, res) =>{
     try {
-        console.log("getshow run")
+        console.log("getshows run")
         const shows = await Show.find({showDateTime: {$gte: new Date()}}).populate('movie').sort({ showDateTime: 1 });
 
         // filter unique shows
@@ -108,6 +110,7 @@ export const getShows = async (req, res) =>{
 export const getShow = async (req, res) =>{
     try {
         const {movieId} = req.params;
+        console.log("get by id show movie running");
         // get all upcoming shows for the movie
         const shows = await Show.find({movie: movieId, showDateTime: { $gte: new Date() }})
 
